@@ -519,40 +519,32 @@ class IntroSliderState extends State<IntroSlider>
     }
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     //Full screen view
     if (shouldHideStatusBar == true) {
       SystemChrome.setEnabledSystemUIOverlays([]);
     }
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: Locale(locale ?? 'en'),
-      supportedLocales: [const Locale('en'), const Locale('ar')],
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      home: DefaultTabController(
+    return Scaffold(
+      body: DefaultTabController(
         length: slides.length,
-        child: Scaffold(
-          body: Stack(
-            children: <Widget>[
-              TabBarView(
-                children: tabs,
-                controller: tabController,
-                physics: isScrollable
-                    ? ScrollPhysics()
-                    : NeverScrollableScrollPhysics(),
-              ),
-              renderBottom(),
-            ],
-          ),
+        child: Stack(
+          children: <Widget>[
+            TabBarView(
+              children: tabs,
+              controller: tabController,
+              physics: isScrollable
+                  ? ScrollPhysics()
+                  : NeverScrollableScrollPhysics(),
+            ),
+            renderBottom(),
+          ],
         ),
       ),
     );
   }
+
 
   Widget buildSkipButton() {
     if (tabController.index + 1 == slides.length) {
